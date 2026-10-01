@@ -44,7 +44,7 @@ async function addTask() {
 
     if (!title) {
 
-        alert("Please enter a task.");
+        alert("Please enter a task before adding Add Task.");
 
         return;
     }
