@@ -1,6 +1,9 @@
 import sys
 
-sys.path.insert(0, "backend")
+sys.path.insert(
+    0,
+    "backend"
+)
 
 from backend.app import app
 
@@ -9,7 +12,9 @@ def test_get_tasks():
 
     client = app.test_client()
 
-    response = client.get("/api/tasks")
+    response = client.get(
+        "/api/tasks"
+    )
 
     assert response.status_code == 200
 
@@ -21,14 +26,14 @@ def test_create_task():
     response = client.post(
         "/api/tasks",
         json={
-            "title": "Test Task"
+            "title": "Automated Test Task"
         }
     )
 
     assert response.status_code == 201
 
 
-def test_empty_task():
+def test_create_empty_task():
 
     client = app.test_client()
 

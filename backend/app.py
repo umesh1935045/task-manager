@@ -2,11 +2,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-DATABASE = "tasks.db"
+DATABASE = os.getenv(
+    "DATABASE_PATH",
+    "tasks.db"
+)
 
 
 def get_db_connection():
@@ -82,6 +86,12 @@ def create_task():
         "completed": 0
     }), 201
 
+@app.route("/api/health", methods=["GET"])
+def health():
+    return jsonify({
+        "status": "ok",
+        "service": "task-manager-api"
+    }), 200
 
 @app.route("/api/tasks/<int:task_id>", methods=["PUT"])
 def update_task(task_id):
@@ -146,5 +156,5 @@ if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=5000,
-        debug=True
+        debug=False
     )
